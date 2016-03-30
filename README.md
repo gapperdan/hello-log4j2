@@ -10,7 +10,7 @@ Needs Java 1.8
 > ./gradlew clean test
 ```
 
-### Check the log (refer to log4j.xml configuration)
+### Check the logs (refer to log4j2.xml configuration)
 ```
 > cd /tmp/logs/hello-log4j2
 ```
