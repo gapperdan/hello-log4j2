@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+   <Properties>
+      <Property name="log-path">/tmp/logs/hello-log4j2</Property>
+      <Property name="log-name">hello-log4j2</Property>
+   </Properties>
+   <Appenders>
+      <RollingFile name="info-log" fileName="${log-path}/${log-name}.log" filePattern="${log-path}/${log-name}-%d{yyyy-MM-dd}-%i.log.gz">
+         <PatternLayout>
+            <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{1} - %msg%n</pattern>
+         </PatternLayout>
+         <Policies>
+            <TimeBasedTriggeringPolicy />
+            <SizeBasedTriggeringPolicy size="1 KB" />
+         </Policies>
+         <DefaultRolloverStrategy max="3">
+            <Delete basePath="${log-path}" maxDepth="1">
+               <IfFileName glob="hello-log4j2-*.log.gz">
+                  <IfLastModified age="2m">
+                     <IfAny>
+                        <IfAccumulatedFileSize exceeds="5 KB" />
+                        <IfAccumulatedFileCount exceeds="7" />
+                     </IfAny>
+                  </IfLastModified>
+               </IfFileName>
+            </Delete>
+         </DefaultRolloverStrategy>
+      </RollingFile>
+   </Appenders>
+   <Loggers>
+      <Root level="INFO">
+         <AppenderRef ref="info-log" />
+      </Root>
+   </Loggers>
+</Configuration>
